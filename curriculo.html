@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Currículo Profissional | Design Moderno</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Animate on Scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+        :root {
+            /* Dark Theme (Default) */
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --surface-color: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-color: #0284c7;
+            --accent-glow: rgba(2, 132, 199, 0.1);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Components --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* --- Theme Toggle --- */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at top right, var(--accent-glow), transparent 40%),
+                radial-gradient(circle at bottom left, var(--accent-glow), transparent 40%);
+        }
+
+        .profile-img-container {
+            width: 220px;
+            height: 220px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 30px var(--accent-glow);
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        @keyframes morph {
+            0% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+
+            50% {
+                border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+            }
+
+            100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            font-weight: 300;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+            color: var(--accent-color);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* --- Skills Section --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .chart-container {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--surface-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .skill-item i {
+            color: var(--accent-color);
+        }
+
+        /* --- Experience Section --- */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 0;
+            list-style: none;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.4rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+            z-index: 1;
+        }
+
+        .timeline-item--current::before {
+            box-shadow: 0 0 0 4px var(--accent-glow), 0 0 12px var(--accent-glow);
+        }
+
+        .timeline-content {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+
+        .timeline-date {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .timeline-date time {
+            font-weight: inherit;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* --- Education & Courses --- */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .edu-card {
+            background: var(--surface-color);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+
+        .edu-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: var(--card-shadow);
+        }
+
+        .edu-card h3 {
+            margin: 1rem 0 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        /* --- Languages --- */
+        .languages-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .lang-item {
+            text-align: center;
+        }
+
+        .lang-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 8px solid var(--surface-color);
+            border-top: 8px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="theme-toggle" id="theme-btn" title="Alternar Tema">
+        <i data-lucide="sun" id="theme-icon"></i>
+    </button>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="profile-img-container" data-aos="zoom-in">
+            <img src="professional_profile_placeholder.png" alt="Sua Foto">
+        </div>
+        <h1 data-aos="fade-up">Leandro Machado</h1>
+        <p data-aos="fade-up" data-aos-delay="200">
+            Coordenador de Planejamento de Materiais
+        </p>
+        <div class="scroll-indicator">
+            <i data-lucide="chevron-down" size="32"></i>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="container">
+        <h2 class="section-title" data-aos="fade-up">Minhas Habilidades</h2>
+        <div class="skills-grid">
+            <div class="chart-container" data-aos="fade-right">
+                <canvas id="skillsChart"></canvas>
+            </div>
+            <div class="skills-list">
+                <div class="skill-item" data-aos="fade-left" data-aos-delay="100">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>BI (Inteligência de Negócios)</span>
+                </div>
+                <div class="skill-item" data-aos="fade-left" data-aos-delay="200">
+                    <i data-lucide="database"></i>
+                    <span>Análise de Dados</span>
+                </div>
+                <div class="skill-item" data-aos="fade-left" data-aos-delay="300">
+                    <i data-lucide="package"></i>
+                    <span>Gestão de Estoques</span>
+                </div>
+                <div class="skill-item" data-aos="fade-left" data-aos-delay="400">
+                    <i data-lucide="trending-up"></i>
+                    <span>Planejamento de Materiais</span>
+                </div>
+                <div class="skill-item" data-aos="fade-left" data-aos-delay="500">
+                    <i data-lucide="table"></i>
+                    <span>Especialista em Excel/PowerBI</span>
+                </div>
+                <div class="skill-item" data-aos="fade-left" data-aos-delay="600">
+                    <i data-lucide="target"></i>
+                    <span>Gestão de KPIs</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE — linha do tempo cronológica (mais antiga → atual) -->
+    <section id="experience" class="container">
+        <h2 class="section-title" data-aos="fade-up">Experiência Profissional</h2>
+        <ol class="timeline" aria-label="Experiência profissional em ordem cronológica">
+            <li class="timeline-item" data-aos="fade-up">
+                <div class="timeline-content">
+                    <span class="timeline-date"><time datetime="2000-04">Abril 2000</time> – <time
+                            datetime="2010-08">Agosto 2010</time></span>
+                    <h3 class="timeline-title">Analista de Custos Senior</h3>
+                    <span class="timeline-company">Metagal Indústria e Comércio Ltda.</span>
+                    <p>Estudos de redução de custos, análise de rentabilidade e apuração de custos por atividades industriais.</p>
+                </div>
+            </li>
+            <li class="timeline-item" data-aos="fade-up" data-aos-delay="80">
+                <div class="timeline-content">
+                    <span class="timeline-date"><time datetime="2010-09">Setembro 2010</time> – <time
+                            datetime="2011-02">Fevereiro 2011</time></span>
+                    <h3 class="timeline-title">Analista de Custos Pleno</h3>
+                    <span class="timeline-company">Toyota do Brasil</span>
+                    <p>Análise financeira de custos fabris, formação de preço de produto e monitoramento de rentabilidade (Corolla).</p>
+                </div>
+            </li>
+            <li class="timeline-item" data-aos="fade-up" data-aos-delay="160">
+                <div class="timeline-content">
+                    <span class="timeline-date"><time datetime="2011-02">Fevereiro 2011</time> – <time
+                            datetime="2014-07">Julho 2014</time></span>
+                    <h3 class="timeline-title">Analista de Planejamento Pleno</h3>
+                    <span class="timeline-company">Rolls-Royce</span>
+                    <p>Responsável pelo cálculo de carga e capacidade, monitoramento de KPIs (R2D, OTD) e liderança de projetos de melhoria (Yellow Belt).</p>
+                </div>
+            </li>
+            <li class="timeline-item timeline-item--current" data-aos="fade-up" data-aos-delay="240" aria-current="true">
+                <div class="timeline-content">
+                    <span class="timeline-date"><time datetime="2015-03">Março 2015</time> – Presente</span>
+                    <h3 class="timeline-title">Coordenador de Planejamento</h3>
+                    <span class="timeline-company">Metagal Indústria e Comércio Ltda.</span>
+                    <p>Gestão estratégica de planejamento de materiais e produção, liderando processos de otimização de estoque e fluxo fabril.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="container">
+        <h2 class="section-title" data-aos="fade-up">Formação & Cursos</h2>
+        <div class="education-grid">
+            <div class="edu-card" data-aos="flip-left">
+                <i data-lucide="graduation-cap" size="40" color="var(--accent-color)"></i>
+                <h3>Tecnologia em Processos de Produção</h3>
+                <p>Faculdade de Tecnologia de São Paulo<br><strong>1998 - 2003</strong></p>
+            </div>
+            <div class="edu-card" data-aos="flip-left" data-aos-delay="100">
+                <i data-lucide="award" size="40" color="var(--accent-color)"></i>
+                <h3>Técnico em Plásticos</h3>
+                <p>SENAI "Mário Amato"<br><strong>1994 - 1997</strong></p>
+            </div>
+            <div class="edu-card" data-aos="flip-left" data-aos-delay="200">
+                <i data-lucide="book-open" size="40" color="var(--accent-color)"></i>
+                <h3>Especialista em Excel & PowerBI</h3>
+                <p>Certificações Profissionais<br><strong>Power Query / BI</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LANGUAGES -->
+    <section id="languages" class="container">
+        <h2 class="section-title" data-aos="fade-up">Idiomas</h2>
+        <div class="languages-container">
+            <div class="lang-item" data-aos="zoom-in">
+                <div class="lang-circle" style="border-top-color: var(--accent-color);">PT</div>
+                <p>Português (Nativo)</p>
+            </div>
+            <div class="lang-item" data-aos="zoom-in" data-aos-delay="100">
+                <div class="lang-circle"
+                    style="border-top-color: var(--accent-color); border-right-color: var(--accent-color);">EN</div>
+                <p>Inglês (Avançado - Duolingo)</p>
+            </div>
+        </div>
+    </section>
+
+    <footer
+        style="text-align: center; padding: 4rem; color: var(--text-secondary); border-top: 1px solid var(--border-color);">
+        <p>&copy; 2024 - Criado com Paixão por IA</p>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Theme Toggle Logic
+        const themeBtn = document.getElementById('theme-btn');
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            themeIcon.setAttribute('data-lucide', newTheme === 'dark' ? 'sun' : 'moon');
+            lucide.createIcons();
+
+            // Update Chart Colors if needed
+            updateChartTheme(newTheme);
+        });
+
+        // Chart.js - Skills Radar
+        const ctx = document.getElementById('skillsChart').getContext('2d');
+        let skillsChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Gestão de Estoques', 'BI (Business Intelligence)', 'Análise de Dados', 'Excel Avançado', 'PowerBI', 'Planejamento de Materiais', 'Gestão de KPIs'],
+                datasets: [{
+                    label: 'Nível de Proficiência',
+                    data: [95, 90, 85, 100, 85, 95, 90],
+                    fill: true,
+                    backgroundColor: 'rgba(56, 189, 248, 0.2)',
+                    borderColor: '#38bdf8',
+                    pointBackgroundColor: '#38bdf8',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#38bdf8'
+                }]
+            },
+            options: {
+                elements: {
+                    line: { borderWidth: 3 }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(148, 163, 184, 0.2)' },
+                        grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                        pointLabels: {
+                            color: '#94a3b8',
+                            font: { size: 12, family: 'Outfit' }
+                        },
+                        ticks: { display: false, stepSize: 20 }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        function updateChartTheme(theme) {
+            const textColor = theme === 'dark' ? '#94a3b8' : '#64748b';
+            const gridColor = theme === 'dark' ? 'rgba(148, 163, 184, 0.2)' : 'rgba(100, 116, 139, 0.1)';
+
+            skillsChart.options.scales.r.pointLabels.color = textColor;
+            skillsChart.options.scales.r.angleLines.color = gridColor;
+            skillsChart.options.scales.r.grid.color = gridColor;
+            skillsChart.update();
+        }
+    </script>
+</body>
+
+</html>
