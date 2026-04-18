@@ -360,6 +360,36 @@
             position: relative;
         }
 
+        /* --- Rodapé & QR Code --- */
+        .site-footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .site-footer-copy {
+            margin: 0 0 2rem;
+        }
+
+        .site-footer-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .site-footer-qr img {
+            width: 180px;
+            height: auto;
+            max-width: min(220px, 70vw);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            padding: 0.5rem;
+            box-shadow: var(--card-shadow);
+        }
+
         /* --- Responsive --- */
         @media (max-width: 768px) {
             .hero h1 {
@@ -513,9 +543,11 @@
         </div>
     </section>
 
-    <footer
-        style="text-align: center; padding: 4rem; color: var(--text-secondary); border-top: 1px solid var(--border-color);">
-        <p>&copy; 2024 - Criado com Paixão por IA</p>
+    <footer class="site-footer">
+        <p class="site-footer-copy">&copy; 2024 - Criado com Paixão por IA</p>
+        <div class="site-footer-qr" data-aos="fade-up">
+            <img src="QRCode.jpg" alt="Código QR" width="200" height="200" decoding="async">
+        </div>
     </footer>
 
     <script>
